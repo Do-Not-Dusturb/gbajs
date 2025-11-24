@@ -161,11 +161,6 @@ input[type=range] {
 	margin: 2px;
 }
 
-footer {
-	font-size: 12px;
-	padding-top: 8px;
-}
-
 p {
 	margin: 0;
 }
@@ -174,18 +169,39 @@ label p, #sound p {
 	display: inline;
 }
 
-ul#links {
-	display: block;
-	text-align: center;
-	padding: 0;
+/* Fullscreen styles */
+:fullscreen {
+	background-color: #433061;
 }
 
-ul#links li {
-	display: inline;
-	list-style-type: none;
+:-webkit-full-screen {
+	background-color: #433061;
 }
 
-ul#links li:not(:first-child)::before {
-	content: "•";
-	margin: 0 0.5em;
+:-moz-full-screen {
+	background-color: #433061;
+}
+
+:-ms-fullscreen {
+	background-color: #433061;
+}
+
+:fullscreen #screen {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+:-webkit-full-screen #screen {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+:-moz-full-screen #screen {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+:-ms-fullscreen #screen {
+	margin-top: 0;
+	margin-bottom: 0;
 }

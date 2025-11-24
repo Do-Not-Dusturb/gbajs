@@ -37,6 +37,7 @@ The emulator also has these features:
 * Downloadable and uploadable savegames
 * Screenshots
 * Pausing the emulation
+* Fullscreen support
 * Support for gamepaks that contain a realtime clock (e.g. Pokemon Ruby and Sapphire)
 
 Features that may be implemented in the future include:
@@ -46,7 +47,6 @@ Features that may be implemented in the future include:
 * Gamepad support
 * Link cable over Web Sockets
 * Cheat code support
-* Fullscreen support
 * Support for gamepaks that have other sensors (e.g. WarioWare Twisted!, Boktai)
 
 ## License
