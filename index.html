@@ -317,28 +317,13 @@ function updateFullscreenButton() {
 	}
 }
 
-// Add event listeners for fullscreen changes
-document.addEventListener('fullscreenchange', updateFullscreenButton, false);
-document.addEventListener('webkitfullscreenchange', updateFullscreenButton, false);
-document.addEventListener('mozfullscreenchange', updateFullscreenButton, false);
-document.addEventListener('MSFullscreenChange', updateFullscreenButton, false);
-
-// Handle canvas resizing in fullscreen
-document.addEventListener('webkitfullscreenchange', function() {
+function resizeCanvasForFullscreen() {
 	var canvas = document.getElementById('screen');
-	if (document.webkitIsFullScreen) {
-		canvas.setAttribute('height', document.body.offsetHeight);
-		canvas.setAttribute('width', document.body.offsetHeight / 2 * 3);
-		canvas.setAttribute('style', 'margin: 0');
-	} else {
-		canvas.setAttribute('height', 320);
-		canvas.setAttribute('width', 480);
-		canvas.removeAttribute('style');
-	}
-}, false);
-document.addEventListener('fullscreenchange', function() {
-	var canvas = document.getElementById('screen');
-	if (document.fullscreenElement) {
+	var isFullscreen = document.fullscreenElement || document.webkitFullscreenElement || 
+	                   document.webkitIsFullScreen || document.mozFullScreenElement || 
+	                   document.msFullscreenElement;
+	
+	if (isFullscreen) {
 		canvas.setAttribute('height', window.innerHeight);
 		canvas.setAttribute('width', window.innerHeight / 2 * 3);
 		canvas.setAttribute('style', 'margin: 0');
@@ -347,18 +332,24 @@ document.addEventListener('fullscreenchange', function() {
 		canvas.setAttribute('width', 480);
 		canvas.removeAttribute('style');
 	}
+}
+
+// Add event listeners for fullscreen changes
+document.addEventListener('fullscreenchange', function() {
+	updateFullscreenButton();
+	resizeCanvasForFullscreen();
+}, false);
+document.addEventListener('webkitfullscreenchange', function() {
+	updateFullscreenButton();
+	resizeCanvasForFullscreen();
 }, false);
 document.addEventListener('mozfullscreenchange', function() {
-	var canvas = document.getElementById('screen');
-	if (document.mozFullScreenElement) {
-		canvas.setAttribute('height', window.innerHeight);
-		canvas.setAttribute('width', window.innerHeight / 2 * 3);
-		canvas.setAttribute('style', 'margin: 0');
-	} else {
-		canvas.setAttribute('height', 320);
-		canvas.setAttribute('width', 480);
-		canvas.removeAttribute('style');
-	}
+	updateFullscreenButton();
+	resizeCanvasForFullscreen();
+}, false);
+document.addEventListener('MSFullscreenChange', function() {
+	updateFullscreenButton();
+	resizeCanvasForFullscreen();
 }, false);
 </script>
 </head>
