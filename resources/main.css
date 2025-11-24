@@ -161,31 +161,10 @@ input[type=range] {
 	margin: 2px;
 }
 
-footer {
-	font-size: 12px;
-	padding-top: 8px;
-}
-
 p {
 	margin: 0;
 }
 
 label p, #sound p {
 	display: inline;
-}
-
-ul#links {
-	display: block;
-	text-align: center;
-	padding: 0;
-}
-
-ul#links li {
-	display: inline;
-	list-style-type: none;
-}
-
-ul#links li:not(:first-child)::before {
-	content: "•";
-	margin: 0 0.5em;
 }
