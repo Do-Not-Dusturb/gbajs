@@ -270,11 +270,89 @@ function enableDebug() {
 	}
 }
 
+function toggleFullscreen() {
+	var elem = document.documentElement;
+	
+	if (!document.fullscreenElement && !document.webkitFullscreenElement && 
+	    !document.mozFullScreenElement && !document.msFullscreenElement) {
+		// Enter fullscreen
+		if (elem.requestFullscreen) {
+			elem.requestFullscreen();
+		} else if (elem.webkitRequestFullscreen) {
+			elem.webkitRequestFullscreen();
+		} else if (elem.mozRequestFullScreen) {
+			elem.mozRequestFullScreen();
+		} else if (elem.msRequestFullscreen) {
+			elem.msRequestFullscreen();
+		}
+	} else {
+		// Exit fullscreen
+		if (document.exitFullscreen) {
+			document.exitFullscreen();
+		} else if (document.webkitExitFullscreen) {
+			document.webkitExitFullscreen();
+		} else if (document.mozCancelFullScreen) {
+			document.mozCancelFullScreen();
+		} else if (document.msExitFullscreen) {
+			document.msExitFullscreen();
+		}
+	}
+}
+
+function updateFullscreenButton() {
+	var btn = document.getElementById('fullscreenBtn');
+	if (!btn) return;
+	
+	var isFullscreen = document.fullscreenElement || document.webkitFullscreenElement || 
+	                   document.mozFullScreenElement || document.msFullscreenElement;
+	
+	if (isFullscreen) {
+		btn.textContent = 'Exit Fullscreen';
+		btn.setAttribute('aria-label', 'Exit fullscreen');
+		btn.setAttribute('title', 'Exit fullscreen');
+	} else {
+		btn.textContent = 'Fullscreen';
+		btn.setAttribute('aria-label', 'Toggle fullscreen');
+		btn.setAttribute('title', 'Toggle fullscreen');
+	}
+}
+
+// Add event listeners for fullscreen changes
+document.addEventListener('fullscreenchange', updateFullscreenButton, false);
+document.addEventListener('webkitfullscreenchange', updateFullscreenButton, false);
+document.addEventListener('mozfullscreenchange', updateFullscreenButton, false);
+document.addEventListener('MSFullscreenChange', updateFullscreenButton, false);
+
+// Handle canvas resizing in fullscreen
 document.addEventListener('webkitfullscreenchange', function() {
 	var canvas = document.getElementById('screen');
 	if (document.webkitIsFullScreen) {
 		canvas.setAttribute('height', document.body.offsetHeight);
 		canvas.setAttribute('width', document.body.offsetHeight / 2 * 3);
+		canvas.setAttribute('style', 'margin: 0');
+	} else {
+		canvas.setAttribute('height', 320);
+		canvas.setAttribute('width', 480);
+		canvas.removeAttribute('style');
+	}
+}, false);
+document.addEventListener('fullscreenchange', function() {
+	var canvas = document.getElementById('screen');
+	if (document.fullscreenElement) {
+		canvas.setAttribute('height', window.innerHeight);
+		canvas.setAttribute('width', window.innerHeight / 2 * 3);
+		canvas.setAttribute('style', 'margin: 0');
+	} else {
+		canvas.setAttribute('height', 320);
+		canvas.setAttribute('width', 480);
+		canvas.removeAttribute('style');
+	}
+}, false);
+document.addEventListener('mozfullscreenchange', function() {
+	var canvas = document.getElementById('screen');
+	if (document.mozFullScreenElement) {
+		canvas.setAttribute('height', window.innerHeight);
+		canvas.setAttribute('width', window.innerHeight / 2 * 3);
 		canvas.setAttribute('style', 'margin: 0');
 	} else {
 		canvas.setAttribute('height', 320);
@@ -298,6 +376,7 @@ document.addEventListener('webkitfullscreenchange', function() {
 		<button class="bigbutton" onclick="reset()">RESET</button>
 		<button onclick="gba.downloadSavedata()">Download Savegame</button>
 		<button onclick="screenshot()">Screenshot</button>
+		<button id="fullscreenBtn" onclick="toggleFullscreen()" title="Toggle fullscreen" aria-label="Toggle fullscreen">Fullscreen</button>
 		<label id="pixelated">
 			<input type="checkbox" onchange="setPixelated(this.checked)">
 			<p>Pixelated</p>

@@ -168,3 +168,40 @@ p {
 label p, #sound p {
 	display: inline;
 }
+
+/* Fullscreen styles */
+:fullscreen {
+	background-color: #433061;
+}
+
+:-webkit-full-screen {
+	background-color: #433061;
+}
+
+:-moz-full-screen {
+	background-color: #433061;
+}
+
+:-ms-fullscreen {
+	background-color: #433061;
+}
+
+:fullscreen #screen {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+:-webkit-full-screen #screen {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+:-moz-full-screen #screen {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+:-ms-fullscreen #screen {
+	margin-top: 0;
+	margin-bottom: 0;
+}
